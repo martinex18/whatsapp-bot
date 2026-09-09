@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: evolution-postgres
+    environment:
+      POSTGRES_DB: evolution
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: evolutionpass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  evolution-api:
+    image: evoapicloud/evolution-api:v2.3.7
+    container_name: evolution-api
+    ports:
+      - "8080:8080"
+    environment:
+      AUTHENTICATION_API_KEY: mi-clave-evolution
+      SERVER_URL: http://localhost:8080
+
+      DATABASE_ENABLED: "true"
+      DATABASE_PROVIDER: postgresql
+      DATABASE_CONNECTION_URI: postgresql://postgres:evolutionpass@postgres:5432/evolution
+
+      CACHE_REDIS_ENABLED: "false"
+      CACHE_LOCAL_ENABLED: "true"
+
+      DATABASE_SAVE_DATA_INSTANCE: "true"
+      DATABASE_SAVE_DATA_NEW_MESSAGE: "true"
+      DATABASE_SAVE_MESSAGE_UPDATE: "true"
+      DATABASE_SAVE_DATA_CONTACTS: "true"
+      DATABASE_SAVE_DATA_CHATS: "true"
+      DATABASE_SAVE_DATA_LABELS: "true"
+      DATABASE_SAVE_DATA_HISTORIC: "true"
+
+    volumes:
+      - evolution_instances:/evolution/instances
+
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  evolution_instances:
