@@ -51,7 +51,7 @@ Antes de comenzar se necesita:
 Clona el repositorio:
 
 ```bash
-git clone <https://github.com/martinex18/whatsapp-bot>
+git clone https://github.com/martinex18/whatsapp-bot
 cd whatsapp-bot
 ```
 
