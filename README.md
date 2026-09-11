@@ -8,14 +8,14 @@ Además, incluye un panel administrativo para configurar el comportamiento del b
 
 ## Tecnologías
 
-* **Next.js 16** — frontend y backend en un mismo proyecto.
-* **TypeScript** — tipado estático.
-* **SQLite** — persistencia de la configuración del bot.
-* **better-sqlite3** — conexión con SQLite.
-* **Evolution API** — integración con WhatsApp.
-* **Docker / Docker Compose** — ejecución de Evolution API y PostgreSQL.
-* **OpenRouter** — proveedor del modelo de inteligencia artificial.
-* **Tailwind CSS** — estilos del panel administrativo.
+- **Next.js 16** — frontend y backend en un mismo proyecto.
+- **TypeScript** — tipado estático.
+- **SQLite** — persistencia de la configuración del bot.
+- **better-sqlite3** — conexión con SQLite.
+- **Evolution API** — integración con WhatsApp.
+- **Docker / Docker Compose** — ejecución de Evolution API y PostgreSQL.
+- **OpenRouter** — proveedor del modelo de inteligencia artificial.
+- **Tailwind CSS** — estilos del panel administrativo.
 
 ## Arquitectura
 
@@ -40,11 +40,11 @@ El proyecto utiliza una arquitectura monorepo, manteniendo frontend y backend de
 
 Antes de comenzar se necesita:
 
-* Node.js
-* npm
-* Docker Desktop
-* Una cuenta gratuita de OpenRouter
-* Una cuenta de WhatsApp para conectar mediante QR
+- Node.js
+- npm
+- Docker Desktop
+- Una cuenta gratuita de OpenRouter
+- Una cuenta de WhatsApp para conectar mediante QR
 
 ## Instalación
 
@@ -137,9 +137,9 @@ http://localhost:3000/admin
 
 Desde `/admin` puedes configurar:
 
-* **Prompt:** instrucciones y personalidad del asistente.
-* **Model:** modelo gratuito de OpenRouter.
-* **Temperature:** controla el nivel de variación de las respuestas.
+- **Prompt:** instrucciones y personalidad del asistente.
+- **Model:** modelo gratuito de OpenRouter.
+- **Temperature:** controla el nivel de variación de las respuestas.
 
 La configuración se almacena en SQLite.
 
@@ -175,9 +175,9 @@ Las integraciones externas con OpenRouter y Evolution API comprueban la respuest
 
 Cuando una petición falla:
 
-* Se registra el error en la consola.
-* Se lanza un error para detener el flujo.
-* El webhook puede detectar el fallo en lugar de continuar con una respuesta inválida.
+- Se registra el error en la consola.
+- Se lanza un error para detener el flujo.
+- El webhook puede detectar el fallo en lugar de continuar con una respuesta inválida.
 
 ## Decisiones de arquitectura
 
@@ -215,27 +215,27 @@ El proyecto está pensado como una prueba de concepto local y no como una aplica
 
 Actualmente:
 
-* El panel administrativo no tiene autenticación.
-* La configuración utiliza un único registro.
-* El webhook maneja principalmente mensajes de texto.
-* No existe memoria de conversaciones.
-* No existe sistema RAG.
-* No se implementó un sistema avanzado de colas o reintentos.
-* No se realizó despliegue a producción.
+- El panel administrativo no tiene autenticación.
+- La configuración utiliza un único registro.
+- El webhook maneja principalmente mensajes de texto.
+- No existe memoria de conversaciones.
+- No existe sistema RAG.
+- No se implementó un sistema avanzado de colas o reintentos.
+- No se realizó despliegue a producción.
 
 ## Qué mejoraría con más tiempo
 
 En un entorno productivo agregaría:
 
-* Autenticación y autorización para el panel administrativo.
-* Validación más completa de los datos recibidos por el webhook.
-* Manejo específico de diferentes tipos de mensajes de WhatsApp.
-* Memoria e historial de conversaciones.
-* Manejo avanzado de rate limits y disponibilidad de modelos.
-* Sistema de reintentos e idempotencia para evitar mensajes duplicados.
-* Tests automatizados.
-* Gestión más segura de secretos y configuración de Docker.
-* Deploy y monitoreo de la aplicación.
+- Autenticación y autorización para el panel administrativo.
+- Validación más completa de los datos recibidos por el webhook.
+- Manejo específico de diferentes tipos de mensajes de WhatsApp.
+- Memoria e historial de conversaciones.
+- Manejo avanzado de rate limits y disponibilidad de modelos.
+- Sistema de reintentos e idempotencia para evitar mensajes duplicados.
+- Tests automatizados.
+- Gestión más segura de secretos y configuración de Docker.
+- Deploy y monitoreo de la aplicación.
 
 ## Scripts
 
