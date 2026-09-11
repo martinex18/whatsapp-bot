@@ -16,13 +16,16 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const body: Config = await request.json();
+  const now = new Date().toISOString();
   const insertStatement = db.prepare(
-    "insert into bot_config (system_prompt,model,temperature)values(?,?,?)",
+    "insert into bot_config (system_prompt,model,temperature,created_at,updated_at)values(?,?,?,?,?)",
   );
   const result = insertStatement.run(
     body.system_prompt,
     body.model,
     body.temperature,
+    now,
+    now,
   );
 
   return Response.json({
@@ -32,13 +35,15 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   const body: Config = await request.json();
+  const now = new Date().toISOString();
   const updateStatement = db.prepare(
-    "update bot_config set system_prompt = ?, model = ?, temperature = ? where id = ?",
+    "update bot_config set system_prompt = ?, model = ?, temperature = ?, updated_at = ? where id = ?",
   );
   const result = updateStatement.run(
     body.system_prompt,
     body.model,
     body.temperature,
+    now,
     1,
   );
 

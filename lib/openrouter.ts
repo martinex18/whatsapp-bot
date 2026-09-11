@@ -9,31 +9,38 @@ interface OpenRouterRequest {
 }
 
 export async function askOpenRouter(config: OpenRouterRequest) {
-  const response = await fetch(
-    "https://openrouter.ai/api/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+  try {
+    const response = await fetch(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: config.model,
+          messages: [
+            {
+              role: "system", // define el comportamiento de la IA.
+              content: config.systemPrompt,
+            },
+            {
+              role: "user",
+              content: config.message,
+            },
+          ],
+          temperature: config.temperature,
+        }),
       },
-      body: JSON.stringify({
-        model: config.model,
-        messages: [
-          {
-            role: "system", // define el comportamiento de la IA.
-            content: config.systemPrompt,
-          },
-          {
-            role: "user",
-            content: config.message,
-          },
-        ],
-        temperature: config.temperature,
-      }),
-    },
-  );
+    );
 
-  const data = await response.json();
-  return data.choices[0].message.content;
+    if (!response.ok) throw new Error(`OpenRouter error: ${response.status}`);
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  } catch (error) {
+    console.error("Error al obtener respuesta de OpenRouter: ", error);
+    throw new Error("No se pudo obtener una respuesta de OpenRouter");
+  }
 }
